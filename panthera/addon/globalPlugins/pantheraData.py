@@ -517,6 +517,7 @@ GENERATIONS = (
         # `_old_addons` drops it.
         "oldAddon": None,
     },
+    {
         "key": "sequoia",
         "tree": pantherasequoia,
         "label": "Sequoia speech -- Mac OS X 15+10.7 synthesizer binaries, Alex and twenty-three more",

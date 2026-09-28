@@ -357,6 +357,7 @@ $GenerationTable = @(
     [pscustomobject]@{ Folder='Leopard';     Label='Leopard';      Item='Leopard - Mac OS X 10.5' }
     [pscustomobject]@{ Folder='Snowleopard'; Label='Snow Leopard'; Item='Snow Leopard - Mac OS X 10.6' }
     [pscustomobject]@{ Folder='Lion';        Label='Lion';         Item='Lion - Mac OS X 10.7' }
+    [pscustomobject]@{ Folder='Sequoia';        Label='Sequoia';         Item='Sequoia - Mac OS 15 Voice Data with Lion (10.7) Synthesizer' }
 )
 
 # No folders are created here on purpose: the resolved root may be NVDA's
@@ -660,7 +661,7 @@ $label = New-Object Windows.Forms.Label
 $label.Text = 'Mac OS X speech voices:'; $label.AutoSize = $true; $label.Location = New-Object Drawing.Point(12,14)
 $list = New-Object Windows.Forms.CheckedListBox
 $list.Name = 'speechEngineList'; $list.AccessibleName = 'Mac OS X speech engines'
-$list.AccessibleDescription = 'Tiger, Leopard, Snow Leopard, and Lion speech data installation status'
+$list.AccessibleDescription = 'Tiger, Leopard, Snow Leopard, Lion, and Sequoia speech data installation status'
 $list.CheckOnClick = $true
 $list.Location = New-Object Drawing.Point(12,38); $list.Size = New-Object Drawing.Size(680,200)
 $status = New-Object Windows.Forms.Label
@@ -996,7 +997,7 @@ function Invoke-Migration {
         [Windows.Forms.MessageBox]::Show($form,$why,'Panthera SAPI','OK','Information') | Out-Null
         return
     }
-    $message = "Your MacinTalk speech data is in a folder only your Windows account can read:`n`n{0}`n`nMoving it to`n`n{1}`n`nlets every account on this machine use the voices, and leaves one copy instead of one per person. Nothing is re-extracted and the voices stay registered. Only the Tiger, Leopard, Snow Leopard and Lion folders move." -f $plan.From,$plan.To
+    $message = "Your MacinTalk speech data is in a folder only your Windows account can read:`n`n{0}`n`nMoving it to`n`n{1}`n`nlets every account on this machine use the voices, and leaves one copy instead of one per person. Nothing is re-extracted and the voices stay registered. Only the Tiger, Leopard, Snow Leopard, Lion and Sequoia folders move." -f $plan.From,$plan.To
     # **The other add-on's data is not ours to move, and saying so beats
     # being quietly careful.**  outSPOKEN keeps its engines under `outspoken`
     # in the same shared folder, and its released versions look for them in
@@ -1425,7 +1426,7 @@ function Invoke-ChooseRoot([bool]$explain = $true) {
             'Panthera SAPI','OK','Warning') | Out-Null
     } elseif ($explain -and !(@(Get-Voices).Count)) {
         [Windows.Forms.MessageBox]::Show($form,
-            ("There is no speech data in:`n`n{0}`n`nThe generation folders (Tiger, Leopard, Snowleopard, Lion) go inside it. Choose another folder, or close this and use Extract from disc image." -f $data),
+            ("There is no speech data in:`n`n{0}`n`nThe generation folders (Tiger, Leopard, Snowleopard, Lion, Sequoia) go inside it. Choose another folder, or close this and use Extract from disc image." -f $data),
             'Panthera SAPI','OK','Information') | Out-Null
     }
     $browser = New-Object Windows.Forms.FolderBrowserDialog

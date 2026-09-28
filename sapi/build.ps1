@@ -61,7 +61,7 @@ foreach ($testArch in "x86","x64") {
   Copy-Item (Join-Path $stage "panthera_host.exe") $resDir -Force
   & $testCl /nologo /EHsc /O2 /MT /DUNICODE /D_UNICODE "/I$PSScriptRoot" "/I$($msvc.FullName)\include" "/I$($sdk.FullName)\um" "/I$($sdk.FullName)\shared" "/I$($sdk.FullName)\ucrt" (Join-Path $PSScriptRoot "resident_test.cpp") @engineSources "/Fe$resDir\resident_test.exe" "/Fo$resDir\" /link "/LIBPATH:$($msvc.FullName)\lib\$testArch" "/LIBPATH:$($sdk.Parent.Parent.FullName)\Lib\$($sdk.Name)\um\$testArch" "/LIBPATH:$($sdk.Parent.Parent.FullName)\Lib\$($sdk.Name)\ucrt\$testArch" sapi.lib ole32.lib advapi32.lib shell32.lib
   if ($LASTEXITCODE) { throw "resident host test build failed ($LASTEXITCODE)" }
-  foreach ($g in "tiger","leopard","snowleopard","Lion") {
+  foreach ($g in "tiger","leopard","snowleopard","Lion","sequoia") {
     # Lion is asked about Alex: its mtk3 voices are not reproducible run to run,
     # so a byte-identity check on Lion's Fred would fail for reasons of its own.
     $v = if ($g -eq "Lion") { "Alex" } else { "Fred" }

@@ -47,7 +47,7 @@ from logHandler import log
 # are on `sys.path` too -- both holding a `leopardtree`.  Nothing here is
 # reached that way any more, so the fight cannot start.
 from synthDrivers._panthera import (diagnostics, pantheraleopard,
-                                    pantheralion, pantherasnowleopard,
+                                    pantheralion, pantherasequoia, pantherasnowleopard,
                                     pantheratiger)
 
 #: **One dialog covering every Macintosh speech add-on, not one each and not
@@ -329,7 +329,6 @@ Delete the file called "do-not-ask" here if you told NVDA to stop reminding
 you and would like the reminder back.
 """
 
-
 _LION_README = """Lion speech needs Apple's speech engine, which this
 add-on does not ship.
 
@@ -340,6 +339,57 @@ contains:
     Speech\\Voices\\<name>.SpeechVoice\\
     SpeechDictionary.framework\\Versions\\A\\
 
+Dropping the extracted folder in whole, one level down, works too.
+
+The easiest way to get it is NVDA's Tools menu: "Mac OS X speech data...",
+then point it at your own install disc image. It reads the image directly and
+writes into this folder. Nothing is downloaded and no other software is needed.
+
+On a command line instead, the extractor in the project repository does the
+same job:
+
+    py -3 tools\\extract_lion.py "InstallESD.dmg"
+
+It reads your own installer image directly -- no 7-Zip, no other tool -- and
+writes straight into this folder.
+
+Lion needs two libraries of Apple's, not one: libstdc++.6.0.9.dylib and
+libc++abi.dylib, both from usr/lib on the same image. 10.7 moved the C++ ABI
+out of libstdc++ into a library of its own, and without either one the engine
+will not work. The extractor takes both.
+
+It takes them from the installer's BaseSystemBinaries.pkg rather than from
+BaseSystem.dmg, and so should you if you do it by hand: the copies on that
+disk image are 64-bit only, because Lion Recovery is, and cannot load here.
+
+The extractor is a single Python file, downloaded and run separately:
+
+    https://github.com/tgeczy/panthera-speech/blob/main/lion/tools/extract_lion.py
+
+It needs Python 3.8 or newer installed (tested on 3.13).
+
+If you would rather keep the engine on another drive, put its full path into a
+file called lionspeech-data.txt in the configuration folder instead.
+
+The multilingual "Compact" voices on that image are neither extracted nor
+listed. They are a different synthesizer with a different lineage, and this
+project does not load them.
+
+Delete the file called "do-not-ask" here if you told NVDA to stop reminding
+you and would like the reminder back.
+"""
+
+_SEQUOIA_README = """Sequoia speech needs Apple's speech engine, which this
+add-on does not ship.
+
+Since sequoia support requires components from both lion and Sequoia, the macintalk synthesizer, speech dictionary framework, c++ libraries, and sequoia's speech data files, the below requirements mentioning Lion still apply for a successful install. Put the contents of a Mac OS X 10.7 (Lion) install here, so that this folder
+contains:
+
+    Speech\\Synthesizers\\MacinTalk.SpeechSynthesizer\\
+    SpeechDictionary.framework\\Versions\\A\\
+Voice data from Sequoia, which the macintalk from 10.7 can sttill work with, goes here:
+    Speech\\Voices\\<name>.SpeechVoice\\
+Four voice files, to be specific, Alex, Bruce, Victoria, Vicki, are downloadable assets which do not ship withh the system. To find those files after downloading, on a mac OS 15 system, go to  /System/Library/assetsv2 Inside every directory with a hexadecimal name is an AssetData folder, which is the bundle that you need. Sequoia voice data ships with a different structure, where the contents of the AssetData folder, rather than the main content of the Asset folder itself contains the voice data. 
 Dropping the extracted folder in whole, one level down, works too.
 
 The easiest way to get it is NVDA's Tools menu: "Mac OS X speech data...",
@@ -463,6 +513,16 @@ GENERATIONS = (
         "source": "your own Mac OS X 10.7 installer image",
         "readme": _LION_README,
         # No add-on ever carried Lion on its own, so there is nothing of an
+        # older vintage to shadow this one.  None rather than a name, and
+        # `_old_addons` drops it.
+        "oldAddon": None,
+    },
+        "key": "sequoia",
+        "tree": pantherasequoia,
+        "label": "Sequoia speech -- Mac OS X 15+10.7 synthesizer binaries, Alex and twenty-three more",
+        "source": "your own Mac OS X 15and 10.7 installer images",
+        "readme": _SEQUOIA_README,
+        # No add-on ever carried Lion or Sequoia on its own, so there is nothing of an
         # older vintage to shadow this one.  None rather than a name, and
         # `_old_addons` drops it.
         "oldAddon": None,

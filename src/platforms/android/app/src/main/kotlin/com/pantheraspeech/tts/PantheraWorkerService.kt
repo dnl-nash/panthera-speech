@@ -66,7 +66,7 @@ open class PantheraWorkerService : Service() {
             // Timer callbacks now honor serial queues, including Snow Leopard.
             // Failed or slow native cleanup still falls back to retirement.
             // Only acknowledged starts reach this method from the owner.
-            if (!opened || activeGeneration !in setOf("tiger", "leopard", "snowleopard", "lion")) return false
+            if (!opened || activeGeneration !in setOf("tiger", "leopard", "snowleopard", "lion", "sequoia")) return false
             return PantheraCleanup.attempt(synthesis, timeoutMs.coerceIn(1, 120).toLong(),
                 stop = { PantheraNative.nativeStop() },
                 finish = {

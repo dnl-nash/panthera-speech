@@ -90,6 +90,7 @@ internal object PantheraWorkers {
                         "leopard" -> LeopardWorkerService::class.java
                         "snowleopard" -> SnowLeopardWorkerService::class.java
                         "lion" -> LionWorkerService::class.java
+                        "sequoia" -> SequoiaWorkerService::class.java
                         else -> error("Unknown generation: $generation")
                     }
                     connection.bound = ctx.bindService(Intent(ctx, service), connection, Context.BIND_AUTO_CREATE)

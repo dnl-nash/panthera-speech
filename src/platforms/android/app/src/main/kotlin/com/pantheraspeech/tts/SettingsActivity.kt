@@ -444,7 +444,7 @@ class SettingsActivity : Activity() {
             "Zip the folder the desktop add-on extracted for a generation -- it " +
             "holds Speech and SpeechDictionary.framework -- get the zip onto this " +
             "device, and choose it here. Generation folders (tiger, leopard, " +
-            "snowleopard or lion) can be at the top of the zip or inside panthera " +
+            "snowleopard, sequoia or lion) can be at the top of the zip or inside panthera " +
             "or panthera-data, in any casing. A single engine's Speech and " +
             "SpeechDictionary.framework folders can also be at the top. " +
             "The app checks the engine inside before unpacking it into place."))
@@ -462,7 +462,7 @@ class SettingsActivity : Activity() {
                 ?: "Android/data/com.pantheraspeech.tts/files/${PantheraEngine.DATA_DIR}"
         })
         root.addView(body(
-            "named tiger, leopard, snowleopard or lion, exactly as it is: Speech, " +
+            "named tiger, leopard, snowleopard, sequoia or lion, exactly as it is: Speech, " +
             "SpeechDictionary.framework and the rest. On a PC, plug the phone in " +
             "and use the file window; the folder above is under Android, then " +
             "data, then this app."))
@@ -1005,7 +1005,7 @@ class SettingsActivity : Activity() {
                     "Speech in Text-to-speech settings."
                 else
                     "No engine data found.\nUse Extract engine from zip file above, " +
-                    "or copy a generation folder (tiger, leopard, snowleopard or " +
+                    "or copy a generation folder (tiger, leopard, snowleopard, sequoia or " +
                     "lion) holding the extracted Speech and SpeechDictionary.framework " +
                     "folders into:\n" +
                     (PantheraEngine.inboxRoot(this)?.absolutePath

@@ -38,7 +38,8 @@ object PantheraEngine {
     const val GEN_LEOPARD = "leopard"
     const val GEN_SNOW_LEOPARD = "snowleopard"
     const val GEN_LION = "lion"
-    val GENERATIONS = listOf(GEN_TIGER, GEN_LEOPARD, GEN_SNOW_LEOPARD, GEN_LION)
+    const val GEN_SEQUOIA = "sequoia"
+    val GENERATIONS = listOf(GEN_TIGER, GEN_LEOPARD, GEN_SNOW_LEOPARD, GEN_LION, GEN_SEQUOIA)
 
     /** How a generation is named to a person: "Leopard", "Snow Leopard". */
     fun genLabel(gen: String): String = when (gen) {

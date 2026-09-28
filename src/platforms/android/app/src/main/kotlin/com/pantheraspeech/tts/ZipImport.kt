@@ -202,7 +202,7 @@ object ZipImport {
     }
 
     private const val LAYOUT_HELP =
-        "Put tiger, leopard, snowleopard or lion folders at the top of the zip, " +
+        "Put tiger, leopard, snowleopard, Sequoia, or lion folders at the top of the zip, " +
         "or directly inside panthera or panthera-data. " +
         "Folder names may use any casing. A single engine's Speech and " +
         "SpeechDictionary.framework folders may also be at the top."

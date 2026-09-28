@@ -208,7 +208,7 @@ object ZipImportCheck {
                 engine("panthera-data/lion/", "4.0.74", false, listOf("Alex", "Fred", "Bruce"))
             val allZip = expect("all.zip", all) { p ->
                 check(p.refusal == null) { p.refusal!! }
-                check(p.gens == listOf("tiger", "leopard", "snowleopard", "lion")) { p.gens.toString() }
+                check(p.gens == listOf("tiger", "leopard", "snowleopard", "lion", "sequoia")) { p.gens.toString() }
                 check(p.found.map { it.voices } == listOf(1, 2, 1, 3))
             }
             // A folder named for one generation holding another: the name
@@ -275,13 +275,13 @@ object ZipImportCheck {
 
             var last = 0L to 0L
             val gens = ZipImport.extract(ZipImport.source(allZip), plan, root, { d, t -> last = d to t }) { false }
-            check(gens == listOf("tiger", "leopard", "snowleopard", "lion")) { gens.toString() }
+            check(gens == listOf("tiger", "leopard", "snowleopard", "lion", "sequoia")) { gens.toString() }
             check(last.first == allZip.length() && last.second == allZip.length()) { "progress ended at $last" }
             check(!stale.exists()) { "the stale Lion survived" }
             check(File(root, "lion/$MT").length() == binary("4.0.74").size.toLong())
             check(File(root, "tiger/Speech/Voices/Fred.SpeechVoice/Contents/Resources/Fred").length() == 3000L)
             check(File(root, "leopard/$PLIST").readText().contains("3.6.59"))
-            check(root.listFiles()!!.map { it.name }.sorted() == listOf("leopard", "lion", "snowleopard", "tiger"))
+            check(root.listFiles()!!.map { it.name }.sorted() == listOf("leopard", "lion", "snowleopard", "tiger", "sequoia"))
             cases++
 
             // And a zip whose top is one engine with another beneath it: the
